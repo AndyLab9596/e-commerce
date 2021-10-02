@@ -38,7 +38,7 @@ const Header = () => {
             <Dialog open={openDialog} onClose={(event, reason) => handleCloseDialog(event, reason)} >
 
                 <DialogContent>
-                    <Register />
+                    <Register handleCloseDialog={handleCloseDialog} />
                 </DialogContent>
 
                 <DialogActions>

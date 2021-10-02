@@ -3,9 +3,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit'
 import RegisterForm from '../RegisterForm';
+import { useSnackbar } from 'notistack';
 
-const Register = () => {
+const Register = ({ handleCloseDialog }) => {
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = async (values) => {
         try {
@@ -15,7 +17,11 @@ const Register = () => {
             // register ở đây là 1 async action đc export trong userSLice
             const resultAction = await dispatch(register(values))
             const user = unwrapResult(resultAction)
-            console.log('User', user)
+
+            if (handleCloseDialog) {
+                handleCloseDialog()
+            }
+            enqueueSnackbar('Register Successfully !! 🚀', { variant: 'success' })
         } catch (error) {
             console.log('Failed to register', error)
         }

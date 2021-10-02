@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import InputField from 'components/form-controls/InputFields';
-import { Avatar, Typography, Button } from '@mui/material';
+import { Avatar, Typography, Button, LinearProgress } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import PasswordField from 'components/form-controls/PasswordFields';
+import { Box } from '@mui/system';
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,13 +31,14 @@ const RegisterForm = (props) => {
     const classes = useStyles()
 
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         const { onSubmit } = props;
         if (onSubmit) {
-            onSubmit(values)
-            // Chú ý 
-            form.reset()
+            await onSubmit(values)
+
         }
+        // Submit finish then reset the form
+        form.reset()
     }
 
     const schema = yup.object().shape({
@@ -73,9 +75,17 @@ const RegisterForm = (props) => {
         resolver: yupResolver(schema)
     })
 
+    const { isSubmitting } = form.formState;
+
 
     return (
-        <div className={classes.root} sx={{ pt: 2 }}>
+        <div className={classes.root} sx={{ pt: 2, my: 2 }}>
+
+            {isSubmitting && (<Box sx={{ width: '100%' }}>
+                <LinearProgress />
+            </Box>)}
+
+
             <Avatar className={classes.avatar} sx={{ m: '0 auto', p: 1, }}>
                 <LockOutlined />
             </Avatar>
@@ -90,6 +100,7 @@ const RegisterForm = (props) => {
                 <PasswordField name="password" label="Password" form={form} />
                 <PasswordField name="retypePassword" label="Retype Password" form={form} />
                 <Button
+                    disabled={isSubmitting}
                     variant="contained"
                     color="primary"
                     type="submit"
