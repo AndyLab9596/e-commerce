@@ -37,8 +37,7 @@ const RegisterForm = (props) => {
             await onSubmit(values)
 
         }
-        // Submit finish then reset the form
-        form.reset()
+
     }
 
     const schema = yup.object().shape({

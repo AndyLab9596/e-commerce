@@ -24,6 +24,7 @@ const Register = ({ handleCloseDialog }) => {
             enqueueSnackbar('Register Successfully !! 🚀', { variant: 'success' })
         } catch (error) {
             console.log('Failed to register', error)
+            enqueueSnackbar(error.message, { variant: 'error' })
         }
     }
 
