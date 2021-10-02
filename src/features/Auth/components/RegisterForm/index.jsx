@@ -9,8 +9,6 @@ import { makeStyles } from '@mui/styles';
 import PasswordField from 'components/form-controls/PasswordFields';
 
 
-
-
 const useStyles = makeStyles(theme => ({
     root: {
 
@@ -37,7 +35,7 @@ const RegisterForm = (props) => {
         if (onSubmit) {
             onSubmit(values)
             // Chú ý 
-            // form.reset()
+            form.reset()
         }
     }
 
@@ -55,6 +53,7 @@ const RegisterForm = (props) => {
         password: yup
             .string()
             .min(6)
+            // minlength 6 due to the requirement of backend
             // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 
             // 'Password must have Minimum eight characters, at least one letter, one number and one special character')
             .required("Please enter your password"),
