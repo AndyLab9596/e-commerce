@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Container, Grid, Paper } from '@mui/material';
+import { Container, Grid, Pagination, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 import productApi from 'api/productApi';
@@ -47,6 +47,7 @@ const ListPage = () => {
                         <Paper elevation={4}>
                             {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
                         </Paper>
+                        <Pagination count={10} color="primary" />
                     </Grid>
                 </Grid>
             </Container>
