@@ -1,11 +1,10 @@
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import { Provider } from 'react-redux';
+import App from './App';
 import store from './app/store';
-import { SnackbarProvider } from 'notistack';
-
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +14,9 @@ ReactDOM.render(
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         autoHideDuration={3000}
         disableWindowBlurListener >
+
         <App />
+
       </SnackbarProvider>
     </Provider>
   </React.StrictMode>,
