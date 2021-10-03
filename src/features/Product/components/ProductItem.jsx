@@ -10,10 +10,12 @@ const ProductItem = ({ product }) => {
         : `${THUMBNAIL_PLACEHOLDER}`
     return (
         <Box sx={{ p: 1 }}>
-            <Box sx={{ p: 1 }}>
+            {/* Set minHeight for the box outside img tag for better UI, we can set minHeight for difference displays */}
+            <Box sx={{ p: 1, minHeight: "215px" }}>
                 <img src={thumbnailUrl}
                     // onError={e => (e.target.src = "https://picsum.photos/264/370/")}
-                    alt={product.name} width="100%" />
+                    alt={product.name} width="100%"
+                />
             </Box>
             <Typography variant="body2" >{product.name}</Typography>
             <Typography variant="body2" >
