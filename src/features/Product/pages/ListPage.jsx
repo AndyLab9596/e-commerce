@@ -6,6 +6,8 @@ import productApi from 'api/productApi';
 import ProductSkeletonList from '../components/ProductSkeletonList';
 import ProductList from '../components/ProductList';
 
+// pagination is also a kind of filter, when it change, the product list will also change with it
+
 const useStyles = makeStyles(theme => ({
     leftColumn: {
         width: '253px',
@@ -20,20 +22,37 @@ const ListPage = () => {
     const classes = useStyles();
     const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [pagination, setPagination] = useState({
+        limit: 9,
+        page: 1,
+        total: 10,
+    });
+    const [filters, setFilters] = useState({
+        _page: 1,
+        _limit: 9,
+    })
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await productApi.getAll({ _page: 1, _limit: 10 });
-                console.log({ response })
-                setProductList(response.data)
+                const { data, pagination } = await productApi.getAll(filters);
+                console.log({ data, pagination })
+                setProductList(data)
+                setPagination(pagination)
 
             } catch (error) {
                 console.log('Failed to fetch ProductList', error)
             }
             setLoading(false)
         })()
-    }, [])
+    }, [filters])
+
+    const handlePageChange = (e, page) => {
+        setFilters(prev => ({
+            ...prev,
+            _page: page,
+        }))
+    }
 
     return (
         <Box>
@@ -45,9 +64,16 @@ const ListPage = () => {
 
                     <Grid item className={classes.rightColumn}>
                         <Paper elevation={4}>
-                            {loading ? <ProductSkeletonList /> : <ProductList data={productList} />}
+                            {loading ? <ProductSkeletonList length={9} /> : <ProductList data={productList} />}
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 5 }}>
+                                <Pagination
+                                    count={Math.ceil(pagination.total / pagination.limit)}
+                                    page={pagination.page}
+                                    color="primary"
+                                    onChange={handlePageChange} />
+                            </Box>
                         </Paper>
-                        <Pagination count={10} color="primary" />
+
                     </Grid>
                 </Grid>
             </Container>
