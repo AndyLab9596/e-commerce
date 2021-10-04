@@ -1,8 +1,32 @@
 import { Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
 
+const useStyles = makeStyles({
+    root: {
+        padding: 16,
+        borderTop: '1px solid rgba(0,0,0,0.5)',
+
+    },
+
+    range: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+        marginTop: 8,
+        marginBottom: 8,
+
+        "& > span": {
+            marginLeft: '8px',
+            marginRight: '8px',
+        }
+
+    },
+})
+
 const FilterByPrice = ({ onChange }) => {
+    const classes = useStyles()
 
     const [values, setValues] = useState({
         salePrice_gte: 0,
@@ -26,10 +50,10 @@ const FilterByPrice = ({ onChange }) => {
     }
 
     return (
-        <Box>
+        <Box className={classes.root}>
             <Typography variant="subtitle2">GÍA</Typography>
 
-            <Box>
+            <Box className={classes.range}>
                 <TextField variant="standard" name="salePrice_gte" value={values.salePrice_gte} onChange={handleChange} />
                 <span>-</span>
                 <TextField variant="standard" name="salePrice_lte" value={values.salePrice_lte} onChange={handleChange} />
