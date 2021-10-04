@@ -2,6 +2,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import FilterByCategory from './Filters/FilterByCategory';
 import FilterByPrice from './Filters/FilterByPrice';
+import FilterByService from './Filters/FilterByService';
 
 const ProductFilters = ({ filters, onChange }) => {
 
@@ -17,7 +18,7 @@ const ProductFilters = ({ filters, onChange }) => {
         onChange(newFilters)
     }
 
-    const handlePriceChange = (values) => {
+    const handleChange = (values) => {
         if (onChange) {
             onChange(values)
         }
@@ -26,7 +27,8 @@ const ProductFilters = ({ filters, onChange }) => {
     return (
         <Box>
             <FilterByCategory onChange={handleCategoryChange} />
-            <FilterByPrice onChange={handlePriceChange} />
+            <FilterByPrice onChange={handleChange} />
+            <FilterByService filters={filters} onChange={handleChange} />
         </Box>
     );
 };
