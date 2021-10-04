@@ -7,6 +7,7 @@ import ProductSkeletonList from '../components/ProductSkeletonList';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
 import ProductFilters from '../components/ProductFilters';
+import FilterViewer from '../components/FilterViewer';
 
 // pagination is also a kind of filter, when it change, the product list will also change with it
 
@@ -71,6 +72,10 @@ const ListPage = () => {
         }))
     }
 
+    const setNewFilters = (newFilters) => {
+        setFilters(newFilters)
+    }
+
     return (
         <Box>
             <Container>
@@ -78,15 +83,17 @@ const ListPage = () => {
                     <Grid item className={classes.leftColumn}>
                         <Paper elevation={4}>
                             <ProductFilters filters={filters} onChange={handleFiltersChange} />
+
                         </Paper>
                     </Grid>
 
                     <Grid item className={classes.rightColumn}>
-
                         <Paper elevation={4}>
+
                             <Box sx={{ p: 1 }}>
                                 <ProductSort currentSort={filters._sort} onChange={handleSortChange} />
                             </Box>
+                            <FilterViewer filters={filters} onChange={setNewFilters} />
                             {loading ? <ProductSkeletonList length={9} /> : <ProductList data={productList} />}
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 5 }}>
                                 <Pagination
