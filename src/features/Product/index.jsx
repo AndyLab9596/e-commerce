@@ -1,6 +1,7 @@
 import { Box } from '@mui/system';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router';
+import DetailPage from './pages/DetailPage';
 import ListPage from './pages/ListPage';
 
 const ProductFeature = () => {
@@ -9,6 +10,7 @@ const ProductFeature = () => {
         <Box sx={{ pt: 4 }}>
             <Switch>
                 <Route path={match.url} exact component={ListPage} />
+                <Route path={`${match.url}/:productId`} component={DetailPage} />
             </Switch>
         </Box>
     );
