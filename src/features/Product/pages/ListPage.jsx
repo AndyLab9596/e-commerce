@@ -66,7 +66,7 @@ const ListPage = () => {
     //         search: queryString.stringify(filters)
     //     })
     // }, [history, filters])
-
+    // IIFE: intermediate invoke function expression
     useEffect(() => {
         (async () => {
             try {

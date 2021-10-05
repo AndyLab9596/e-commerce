@@ -7,6 +7,7 @@ import ProductInfo from '../components/ProductInfo';
 import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../hooks/useProductDetail';
 import AddToCartForm from '../components/AddToCartForm';
+import ProductMenu from '../components/ProductMenu';
 
 const useStyles = makeStyles(theme => ({
     leftColumn: {
@@ -54,6 +55,7 @@ const DetailPage = () => {
                         </Grid>
                     </Grid>
                 </Paper>
+                <ProductMenu />
             </Container>
         </Box>
     );
